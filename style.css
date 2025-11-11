@@ -1,0 +1,333 @@
+/* Body Background */
+body {
+  font-family: Arial, sans-serif;
+   background:
+        linear-gradient(rgba(37,117,252,0.85), rgba(106,17,203,0.85)),
+        url('images/logo.png') center center fixed;
+  height: 100vh;
+  display: flex;
+  flex-direction: column; /* So logo + form are stacked vertically */
+  justify-content: center;
+  align-items: center;
+  margin: 0;  
+  overflow-y: auto;
+}
+
+ .logo-top-left {
+      position: absolute;
+      top: 15px;
+      left: 20px;
+    }
+
+    .logo-top-left img {
+      width: 300px;   /* make logo small */
+      height: auto;
+    }
+
+/* Main Title */
+h1 {
+  font-family: 'Times New Roman', Times, serif;
+  text-align: center;
+  font-weight: bold;
+  font-size: 48px; /* more balanced size */
+  letter-spacing: 2px; /* adds spacing between letters */
+  text-transform: uppercase; /* optional: makes it all caps */
+  
+  color: #ccc;
+  background: linear-gradient(90deg, #2575fc, #6a11cb); /* gradient text */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  margin: 50px 0 50px 0;
+  padding: 10px;
+}
+
+
+.form-box {
+      background: rgba(255, 255, 255, 0.08); /* transparent glass effect */
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      border-radius: 20px;
+      padding: 40px;
+      width: 90%;
+      max-width: 850px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+/* Section Title */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 24px;
+  font-weight: bold;
+}
+input, select, textarea {
+  border-radius: 6px !important;
+  padding: 8px !important; /* smaller padding */
+  font-size: 13px;
+  width: 100%;
+  border: 1px solid #ccc;
+  transition: 0.3s;
+}
+
+/* Labels & Inputs */
+label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #444;
+}
+
+input, select, textarea {
+  border-radius: 8px !important;
+  padding: 10px !important;
+  font-size: 14px;
+  width: 100%;
+  border: 1px solid #ccc;
+  transition: 0.3s;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #2575fc !important;
+  box-shadow: 0 0 5px rgba(37,117,252,0.5) !important;
+}
+
+/* Button */
+.btn-custom {
+  width: 100%;
+  padding: 10px;
+  background: #2575fc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.btn-custom:hover {
+  background: #1a5edb;
+}
+
+/* Password Section */
+.show-password {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #555;
+}
+.show-password label {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.password-strength {
+  margin-top: 5px;
+  font-size: 12px;
+  font-weight: bold;
+}
+/* Form container wider */
+.form-container {
+  max-width: 900px; /* wider form */
+  margin: 40px auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Inputs and textarea wider and consistent */
+.form-control {
+  width: 100%;
+  padding: 10px;
+  font-size: 13px; /* smaller input text */
+  border-radius: 6px;
+}
+
+
+label {
+  font-weight: 600;
+  margin-bottom: 4px;
+  font-size: 13px; /* smaller labels */
+  display: block;
+}
+
+/* Address textarea matches input */
+textarea.form-control {
+  resize: none;
+}
+
+/*LOGIN
+
+/* Title Section */
+.form-title {
+  text-align: center;
+  margin: 30px 0 20px;
+}
+
+.form-title h1 {
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+  font-size: 42px;
+  color: #222;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+  margin-bottom: 8px;
+}
+
+.form-title .subtitle {
+  font-size: 18px;
+  color: #444;
+  font-style: italic;
+}
+
+/* Form Box */
+.form-box {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+  padding: 40px;
+  max-width: 950px;
+  margin: 20px auto;
+  gap: 25px;
+}
+
+/* Logo Section */
+.form-logo {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-logo img {
+  width: 1000px;
+  max-width: 1000%;
+  border-radius: 12px;
+  ;
+}
+
+/* Form Content */
+.form-content {
+  flex: 2;
+}
+
+.form-content h2 {
+  font-size: 26px;
+  font-weight: bold;
+  color: #2575fc;
+}
+
+/* Inputs */
+.form-control {
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+}
+
+.form-control:focus {
+  border-color: #2575fc;
+  box-shadow: 0 0 6px rgba(37,117,252,0.5);
+}
+
+/* Button */
+.btn-custom {
+  width: 100%;
+  padding: 12px;
+  background: #2575fc;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-custom:hover {
+  background: #1a5edb;
+}
+
+/* Sign up link */
+.signup-link {
+  font-weight: bold;
+  color: #2575fc;
+  text-decoration: none;
+}
+
+.signup-link:hover {
+  text-decoration: underline;
+}
+
+/*DASHBOARD */
+
+body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+      background-color: #f4f6f9;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background-color: #2c3e50; /* Dark Blue-Gray */
+      color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      padding-top: 20px;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 12px 20px;
+      color: white;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #34495e;
+    }
+
+    /* Content */
+    .content {
+      margin-left: 220px; /* space for sidebar */
+      padding: 20px;
+      flex: 1;
+    }
+
+    /* Header */
+    .header {
+      background-color: #2980b9; /* Blue */
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    /* Logout button */
+    .logout {
+      background-color: #e74c3c;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .logout:hover {
+      background-color: #c0392b;
+    }
