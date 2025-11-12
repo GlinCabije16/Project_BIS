@@ -28,6 +28,7 @@ $data['notifications'] = [];
 if ($result && $result->num_rows > 0) {
   while ($n = $result->fetch_assoc()) {
     $data['notifications'][] = [
+      'id' => $n['id'],  
       'message' => $n['message'],
       'created_at' => $n['created_at']
     ];

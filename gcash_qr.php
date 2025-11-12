@@ -9,6 +9,7 @@ $request_id = $_GET['request_id'];
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" href="images/lgo.png" type="image/x-icon">
 <meta charset="UTF-8">
 <title>GCash Payment</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">

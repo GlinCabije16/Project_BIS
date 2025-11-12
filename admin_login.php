@@ -129,7 +129,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   </style>
 </head>
+<!-- Place this inside your <head> tag -->
+<link rel="icon" href="images/lgo.png" type="image/x-icon">
+
 <body>
+
+<!-- Place this inside your <head> tag -->
+
+
   <h1 class="page-title">Barangay Login Portal</h1>
 
   <div class="container">
@@ -137,6 +144,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <form method="POST">
       <input type="text" name="username" placeholder="Enter Username" required>
       <input type="password" name="password" placeholder="Enter Password" required>
+      
+      
       <button type="submit">Login</button>
     </form>
     <p><a href="index.php">⬅ Back to Home</a></p>
@@ -144,3 +153,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 </body>
 </html>
+
+
+

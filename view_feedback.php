@@ -27,6 +27,7 @@ $result = $conn->query("SELECT * FROM feedback ORDER BY feedback_date DESC");
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" href="images/lgo.png" type="image/x-icon">
 <meta charset="UTF-8">
 <title>Admin | Feedback</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
@@ -146,6 +147,7 @@ textarea {
     <button type="submit" class="logout-btn">🚪 Logout</button>
   </form>
 </div>
+  
 
 <!-- Main Content -->
 <div class="main-content">

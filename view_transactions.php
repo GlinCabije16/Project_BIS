@@ -44,6 +44,7 @@ $result = $conn->query("SELECT p.*, d.document_type, d.username as request_user
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" href="images/lgo.png" type="image/x-icon">
 <meta charset="UTF-8">
 <title>Admin | Transactions</title>
 <style>

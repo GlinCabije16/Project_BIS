@@ -39,6 +39,7 @@ if ($result && $row = $result->fetch_assoc()) $contact_count = $row['total'];
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  
 <meta charset="UTF-8">
 <title>Barangay Admin Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
@@ -50,7 +51,7 @@ if ($result && $row = $result->fetch_assoc()) $contact_count = $row['total'];
     height: 100vh;
     overflow: hidden;
     display: flex;
-    background: linear-gradient(135deg, rgba(37,117,252,0.85), rgba(106,17,203,0.85)),
+    background: linear-gradient(135deg, rgba(45, 126, 255, 0.85), rgba(106,17,203,0.85)),
                 url('images/logo.png') center/cover no-repeat fixed;
     background-size: 400% 400%;
     animation: gradientShift 10s ease infinite;
@@ -291,7 +292,9 @@ if ($result && $row = $result->fetch_assoc()) $contact_count = $row['total'];
 
   <div class="notification-box">
     <h3>🔔 Recent Notifications</h3>
+  
     <?php if ($notif_result && $notif_result->num_rows > 0): ?>
+        <ul>...</ul>
       <ul>
         <?php while($notif = $notif_result->fetch_assoc()): ?>
           <li>

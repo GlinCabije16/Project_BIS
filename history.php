@@ -25,6 +25,7 @@ $result = $stmt->get_result();
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" href="images/lgo.png" type="image/x-icon">
 <meta charset="UTF-8">
 <title>History Transaction</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
@@ -38,7 +39,9 @@ body {
 .sidebar {
   position: fixed; top: 0; left: 0;
   width: 250px; height: 100%;
-  background: linear-gradient(180deg, #1e3a8a, #3b82f6);
+background:
+        linear-gradient(rgba(37,117,252,0.85), rgba(106,17,203,0.85)),
+        url('images/logo.png') center center fixed;
   color: #fff; padding-top: 20px;
 }
 .sidebar h2 {

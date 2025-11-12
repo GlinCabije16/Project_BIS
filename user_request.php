@@ -41,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!DOCTYPE html>
 <html lang='en'>
 <head>
+  <link rel="icon" href="images/lgo.png" type="image/x-icon">
 <meta charset='UTF-8'>
 <title>Request Document</title>
 <style>

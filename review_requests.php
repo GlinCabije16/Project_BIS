@@ -55,6 +55,7 @@ $result = $conn->query("SELECT * FROM document_requests ORDER BY request_date DE
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" href="images/lgo.png" type="image/x-icon">
   <meta charset="UTF-8">
   <title>Admin | Review Requests</title>
   <style>

@@ -36,6 +36,7 @@ $result = $conn->query("SELECT * FROM announcements ORDER BY created_at DESC");
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" href="images/lgo.png" type="image/x-icon">
 <meta charset="UTF-8">
 <title>Admin | Announcements</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">

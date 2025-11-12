@@ -28,7 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!DOCTYPE html>
 <html>
-<head><title>Delivery Option</title></head>
+<head>
+<link rel="icon" href="images/lgo.png" type="image/x-icon">  
+<title>Delivery Option</title></head>
 <body style="font-family:Poppins,sans-serif;text-align:center;">
   <h2>Choose Delivery Method</h2>
   <form method="POST">

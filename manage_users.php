@@ -51,6 +51,7 @@ $users = $conn->query("SELECT * FROM users ORDER BY username ASC");
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" href="images/lgo.png" type="image/x-icon">
 <meta charset="UTF-8">
 <title>Admin | Manage Users</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
@@ -68,7 +69,9 @@ body {
 .sidebar {
   width: 250px;
   height: 100vh;
-  background: linear-gradient(135deg, #2575fc, #6a11cb);
+background:
+        linear-gradient(rgba(37,117,252,0.85), rgba(106,17,203,0.85)),
+        url('images/logo.png') center center fixed;
   color: white;
   padding: 30px 20px;
   position: fixed;

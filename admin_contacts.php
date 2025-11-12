@@ -38,6 +38,7 @@ $result = $conn->query("SELECT * FROM contacts ORDER BY created_at DESC");
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="icon" href="images/lgo.png" type="image/x-icon">
 <meta charset="UTF-8">
 <title>Admin - Manage Contacts</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
