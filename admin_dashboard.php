@@ -35,13 +35,18 @@ if ($result && $row = $result->fetch_assoc()) $feedback_count = $row['total'];
 $contact_count = 0;
 $result = $conn->query("SELECT COUNT(*) AS total FROM contacts");
 if ($result && $row = $result->fetch_assoc()) $contact_count = $row['total'];
+
+// 🔹 COUNT PENDING PAYMENTS
+$pending_count = 0;
+$pending_result = $conn->query("SELECT COUNT(*) AS total FROM payments WHERE payment_status='Pending'");
+if ($pending_result && $row = $pending_result->fetch_assoc()) $pending_count = $row['total'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
 <meta charset="UTF-8">
 <title>Barangay Admin Dashboard</title>
+  <link rel="icon" href="images/lgo.png" type="image/x-icon">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; }
@@ -282,6 +287,13 @@ if ($result && $row = $result->fetch_assoc()) $contact_count = $row['total'];
       <a href="admin_contacts.php">Go →</a>
     </div>
 
+    <!-- 🔹 NEW: Pending Payments Card -->
+    <div class="card">
+      <h2>💳 Pending Payments <span class="badge"><?= $pending_count ?></span></h2>
+      <p>Verify GCash reference numbers before approving.</p>
+      <a href="verify_payments.php">Go →</a>
+    </div>
+
     <div class="card"><h2>📢 Announcements</h2><p>Post and edit announcements.</p><a href="manage_announcements.php">Go →</a></div>
     <div class="card"><h2>💳 Transactions History</h2><p>Track all barangay payments.</p><a href="view_transactions.php">Go →</a></div>
     <div class="card"><h2>👥 Manage Residents</h2><p>Manage resident information.</p><a href="manage_residents.php">Go →</a></div>
@@ -294,7 +306,6 @@ if ($result && $row = $result->fetch_assoc()) $contact_count = $row['total'];
     <h3>🔔 Recent Notifications</h3>
   
     <?php if ($notif_result && $notif_result->num_rows > 0): ?>
-        <ul>...</ul>
       <ul>
         <?php while($notif = $notif_result->fetch_assoc()): ?>
           <li>
@@ -322,6 +333,7 @@ function updateDashboard() {
       document.querySelector('.card:nth-child(2) .badge').textContent = data.complaints;
       document.querySelector('.card:nth-child(3) .badge').textContent = data.feedback;
       document.querySelector('.card:nth-child(4) .badge').textContent = data.contacts;
+      document.querySelector('.card:nth-child(5) .badge').textContent = data.pending_payments; // pending payments
 
       // Update notifications box
       const notifBox = document.querySelector('.notification-box ul');
@@ -347,4 +359,3 @@ function updateDashboard() {
 // Run every 5 seconds
 setInterval(updateDashboard, 5000);
 </script>
-

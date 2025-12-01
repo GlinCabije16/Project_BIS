@@ -86,11 +86,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       <label for='document_type'>Select Document:</label>
       <select name='document_type' id='document_type' required>
         <option value=''>-- Choose Document --</option>
-        <option value='Barangay Clearance'>Barangay Clearance - ₱150</option>
-        <option value='Barangay Certificate'>Barangay Certificate - ₱150</option>
+        <option value='Barangay Clearance'>Barangay Clearance - ₱100</option>
+        <option value='Barangay Certificate'>Barangay Certificate - ₱100</option>
         <option value='Barangay Indigency'>Barangay Indigency - ₱100</option>
-        <option value='Residency Certificate'>Residency Certificate - ₱150</option>
-        <option value='Cenomar'>Cenomar - ₱150</option>
+        <option value='Residency Certificate'>Residency Certificate - ₱100</option>
+        <option value='Cenomar'>Cenomar - ₱80</option>
       </select>
 
       <label for='purpose'>Purpose:</label>

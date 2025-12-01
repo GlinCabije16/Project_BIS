@@ -229,7 +229,16 @@ tr:hover { background:#f9fafb; transition:0.2s; }
 <div class="sidebar">
   <h2>🚴‍♂️ Admin Panel</h2>
   <a href="admin_dashboard.php">🏠 Dashboard</a>
-  <a href="admin_manage_riders.php" class="active">🧑‍💼 Manage Riders</a>
+  <a href="manage_announcements.php">📢 <span>Announcements</span></a>
+  <a href="review_requests.php">📄 <span>User Requests</span></a>
+  <a href="view_transactions.php">💳 <span>Transactions</span></a>
+  <a href="manage_residents.php">👥 <span>Residents</span></a>
+  <a href="view_complaints.php">💬 <span>Complaints</span></a>
+  <a href="view_feedback.php">⭐ <span>Feedback</span></a>
+  <a href="admin_contacts.php">📞 <span>Contacts</span></a>
+  <a href="manage_users.php">🔐 <span>Users</span></a>
+  <a href="admin_manage_deliveries.php">📦 <span>Deliveries</span></a>
+  <a href="admin_manage_riders.php">🚴 <span>Manage Riders</span></a>
   <form method="post" action="logout.php">
     <button type="submit" class="logout-btn">🚪 Logout</button>
   </form>

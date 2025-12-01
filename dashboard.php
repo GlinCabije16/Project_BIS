@@ -16,7 +16,6 @@ $stmt->bind_param("s", $username);
 $stmt->execute();
 $deliveries = $stmt->get_result();
 
-
 // Fetch user document requests
 $query = "SELECT * FROM document_requests WHERE username = ? ORDER BY id DESC";
 $stmt = $conn->prepare($query);
@@ -28,7 +27,7 @@ $result = $stmt->get_result();
 $announcements_query = "SELECT * FROM announcements ORDER BY created_at DESC LIMIT 5";
 $announcements = $conn->query($announcements_query);
 
-// ✅ ADDED: Auto-delete chat messages after delivery is marked "Delivered"
+// ✅ Auto-delete chat messages after delivery is marked "Delivered"
 $conn->query("DELETE FROM chat_messages WHERE delivery_id IN (SELECT id FROM deliveries WHERE delivery_status='Delivered')");
 ?>
 <!DOCTYPE html>
@@ -85,6 +84,16 @@ body {
   display: flex; align-items: center;
   justify-content: space-between; flex-wrap: wrap;
 }
+.badge { font-size: 0.9em; }
+.payment-info {
+  background: #e0f7ec;
+  border-left: 4px solid #10b981;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-top: 5px;
+  font-size: 0.9em;
+}
+.payment-info strong { color: #065f46; }
 @media (max-width: 768px) {
   .sidebar { width: 100%; height: auto; position: relative; }
   .main-content { margin-left: 0; }
@@ -99,7 +108,7 @@ body {
   <a href="dashboard.php" class="active">💻 Dashboard</a>
   <a href="user_request.php">📄 Document Request</a>
   <a href="history.php">📜 History</a>
-  <a href=" reports.php">📊 Reports</a>
+  <a href="reports.php">📊 Reports</a>
   <a href="feedback.php">💬 Feedback</a>
   <a href="announcement.php">📢 Announcements</a>
   <a href="contact.php">📞 Contact</a>
@@ -122,8 +131,9 @@ body {
     <?php
     if ($announcements && $announcements->num_rows > 0) {
         while($a = $announcements->fetch_assoc()){
-            echo "<h5>".htmlspecialchars($a['title'])."</h5>";
-            echo "<p>".htmlspecialchars($a['content'])."</p><hr>";
+         echo "<h5>".htmlspecialchars($a['title'])."</h5>";
+         echo "<p>".htmlspecialchars($a['content'])."</p>";
+         echo "<small class='text-muted'>Posted on: " . date('F j, Y h:i A', strtotime($a['created_at'])) . "</small><hr>";
         }
     } else {
         echo "<p class='text-muted'>No new announcements yet. Please check back later.</p>";
@@ -131,7 +141,7 @@ body {
     ?>
   </div>
 
-  <!-- ✅ ADDED: Only show chat if delivery is claimed and still in transit -->
+  <!-- Deliveries Chat Section -->
   <?php while($d = $deliveries->fetch_assoc()): ?>
     <?php if($d['delivery_status'] === 'In Transit'): ?>
       <div class="card p-3 mb-3">
@@ -146,7 +156,6 @@ body {
       </div>
     <?php endif; ?>
   <?php endwhile; ?>
-
 
   <!-- Document Requests Table -->
   <div class="card p-4">
@@ -164,46 +173,43 @@ body {
       </thead>
       <tbody>
         <?php while ($row = $result->fetch_assoc()): ?>
+          <?php
+          // Get latest delivery status
+          $delivery_status = '';
+          $stmt2 = $conn->prepare("SELECT delivery_status FROM deliveries WHERE request_id=? ORDER BY id DESC LIMIT 1");
+          $stmt2->bind_param("i", $row['id']);
+          $stmt2->execute();
+          $res2 = $stmt2->get_result();
+          if ($res2 && $res2->num_rows > 0) {
+              $delivery = $res2->fetch_assoc();
+              $delivery_status = $delivery['delivery_status'];
+          }
+          $stmt2->close();
+
+          // Determine final status
+          $final_status = $row['status'];
+          if ($delivery_status === 'Delivered') {
+              $final_status = 'Completed';
+          } elseif ($delivery_status === 'In Transit') {
+              $final_status = 'In Transit';
+          }
+
+          $isPaid = in_array(strtolower($final_status), ['paid', 'completed']);
+          ?>
           <tr>
             <td><?= htmlspecialchars($row['document_type']) ?></td>
             <td>₱<?= number_format($row['amount'], 2) ?></td>
-            <td><?= htmlspecialchars(date('Y-m-d', strtotime($row['request_date']))) ?></td>
+            <td><?= htmlspecialchars(date('F j, Y', strtotime($row['request_date']))) ?></td>
             <td>
-              <?php 
-              if ($row['status'] == 'Pending') {
-                  echo '<span class="badge bg-secondary">Pending</span>';
-              } elseif ($row['status'] == 'Approved') {
-                  echo '<span class="badge bg-success">Approved ✅</span>';
-              } elseif ($row['status'] == 'Paid') {
-                  echo '<span class="badge bg-primary">Paid 💳</span>';
-              } elseif ($row['status'] == 'Completed') {
-                  echo '<span class="badge bg-info">Completed 📦</span>';
-              }
-
-              $delivery_status = '';
-              $stmt2 = $conn->prepare("SELECT delivery_status FROM deliveries WHERE request_id=? ORDER BY id DESC LIMIT 1");
-              $stmt2->bind_param("i", $row['id']);
-              $stmt2->execute();
-              $res2 = $stmt2->get_result();
-              if ($res2 && $res2->num_rows > 0) {
-                  $delivery = $res2->fetch_assoc();
-                  $delivery_status = $delivery['delivery_status'];
-              }
-              $stmt2->close();
-
-              if (!empty($delivery_status)) {
-                  echo '<br>';
-                  switch($delivery_status) {
-                      case 'Pending':
-                          echo '<span class="badge bg-secondary">Delivery Pending</span>';
-                          break;
-                      case 'In Transit':
-                          echo '<span class="badge bg-warning text-dark">In Transit 🚚</span>';
-                          break;
-                      case 'Delivered':
-                          echo '<span class="badge bg-success">Delivered ✅</span>';
-                          break;
-                  }
+              <?php
+              switch ($final_status) {
+                  case 'Pending': echo '<span class="badge bg-secondary">Pending</span>'; break;
+                  case 'Approved': echo '<span class="badge bg-success">Approved ✅</span>'; break;
+                  case 'Paid': echo '<span class="badge bg-primary">Paid 💳</span>'; break;
+                  case 'Completed': echo '<span class="badge bg-info">Delivered ✅</span>'; break;
+                  case 'In Transit': echo '<span class="badge bg-warning text-dark">In Transit 🚚</span>'; break;
+                  case 'Cancelled': echo '<span class="badge bg-danger">Cancelled</span>'; break;
+                  default: echo '<span class="badge bg-light text-dark">Unknown</span>';
               }
               ?>
             </td>
@@ -221,6 +227,21 @@ body {
               ?>
             </td>
           </tr>
+
+          <?php if ($isPaid): ?>
+          <tr>
+            <td colspan="5">
+              <div class="payment-info">
+                <strong>✅ Payment Successful</strong><br>
+                Method: <?= htmlspecialchars($row['payment_method'] ?? '—') ?><br>
+                Reference Number: <?= htmlspecialchars($row['reference_number'] ?? '—') ?><br>
+                Payment Date: <?= $row['payment_date'] ? htmlspecialchars(date('F d, Y', strtotime($row['payment_date']))) : '—' ?><br>
+                Amount Paid: ₱<?= number_format($row['amount'], 2) ?><br>
+                Status: <?= htmlspecialchars($final_status) ?>
+              </div>
+            </td>
+          </tr>
+          <?php endif; ?>
         <?php endwhile; ?>
       </tbody>
     </table>

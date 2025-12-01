@@ -165,13 +165,17 @@ h2 {
 <!-- Sidebar -->
 <div class="sidebar">
   <h2>Barangay Admin</h2>
-  <a href="admin_dashboard.php">🏠 Dashboard</a>
-  <a href="manage_announcements.php">📢 Announcements</a>
-  <a href="review_requests.php">📄 Requests</a>
-  <a href="view_complaints.php">💬 Complaints</a>
-  <a href="view_feedback.php">⭐ Feedback</a>
-  <a href="manage_users.php">👥 Users</a>
-  <a href="manage_residents.php">🏘️ Residents</a>
+   <a href="admin_dashboard.php" class="active">🏠 <span>Dashboard</span></a>
+  <a href="manage_announcements.php">📢 <span>Announcements</span></a>
+  <a href="review_requests.php">📄 <span>User Requests</span></a>
+  <a href="view_transactions.php">💳 <span>Transactions</span></a>
+  <a href="manage_residents.php">👥 <span>Residents</span></a>
+  <a href="view_complaints.php">💬 <span>Complaints</span></a>
+  <a href="view_feedback.php">⭐ <span>Feedback</span></a>
+  <a href="admin_contacts.php">📞 <span>Contacts</span></a>
+  <a href="manage_users.php">🔐 <span>Users</span></a>
+  <a href="admin_manage_deliveries.php">📦 <span>Deliveries</span></a>
+  <a href="admin_manage_riders.php">🚴 <span>Manage Riders</span></a>
   <form action="logout.php" method="post">
     <button type="submit" class="logout-btn">🚪 Logout</button>
   </form>

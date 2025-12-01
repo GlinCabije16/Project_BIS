@@ -218,7 +218,8 @@ $result = $conn->query("SELECT * FROM document_requests ORDER BY request_date DE
               <td><?= htmlspecialchars($row['username']) ?></td>
               <td><?= htmlspecialchars($row['document_type']) ?></td>
               <td><?= number_format($row['amount'], 2) ?></td>
-              <td><?= htmlspecialchars($row['request_date']) ?></td>
+            <td class="request-date" data-timestamp="<?= strtotime($row['request_date']) ?>">
+            <?= htmlspecialchars($row['request_date']) ?></td>
               <td><span class="status <?= $row['status'] ?>"><?= $row['status'] ?></span></td>
               <td>
                 <?php if ($row['status'] == 'Pending'): ?>
@@ -253,3 +254,5 @@ $result = $conn->query("SELECT * FROM document_requests ORDER BY request_date DE
   </div>
 </body>
 </html>
+          
+

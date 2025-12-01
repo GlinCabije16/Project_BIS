@@ -152,7 +152,11 @@ $result = $conn->query("SELECT * FROM reports ORDER BY report_date DESC");
                             <td><?= htmlspecialchars($row['admin_reply']) ?: '<span class="text-muted">No reply yet</span>' ?></td>
                             <td>
                                 <a href="reply_report.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-primary">Reply</a>
+    <a href="delete_report.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this report?');">Delete</a>
+</td>
+
                             </td>
+                            
                         </tr>
                     <?php endwhile; ?>
                 <?php else: ?>

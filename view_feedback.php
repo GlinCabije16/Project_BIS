@@ -18,11 +18,18 @@ if(isset($_POST['reply_id'])){
     exit();
 }
 
+// Delete feedback
+if(isset($_POST['delete_id'])){
+    $delete_id = intval($_POST['delete_id']);
+    $stmt = $conn->prepare("DELETE FROM feedback WHERE id=?");
+    $stmt->bind_param("i", $delete_id);
+    $stmt->execute();
+    header("Location: view_feedback.php");
+    exit();
+}
+
 // Fetch all feedback
 $result = $conn->query("SELECT * FROM feedback ORDER BY feedback_date DESC");
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,101 +41,21 @@ $result = $conn->query("SELECT * FROM feedback ORDER BY feedback_date DESC");
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 <style>
 * { font-family: 'Poppins', sans-serif; }
-
-body {
-  margin: 0;
-  display: flex;
-  background: #f5f7fb;
-}
-
-/* Sidebar */
-.sidebar {
-  width: 250px;
-  height: 100vh;
- background:
-        linear-gradient(rgba(37,117,252,0.85), rgba(106,17,203,0.85)),
-        url('images/logo.png') center center fixed;
-  color: white;
-  padding: 30px 20px;
-  position: fixed;
-  left: 0;
-  top: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.sidebar h2 {
-  font-weight: 600;
-  font-size: 22px;
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.sidebar a, .logout-btn {
-  display: block;
-  color: white;
-  text-decoration: none;
-  padding: 10px 15px;
-  margin: 6px 0;
-  border-radius: 8px;
-  transition: 0.3s;
-}
-
-.sidebar a:hover, .logout-btn:hover {
-  background: rgba(255,255,255,0.2);
-}
-
-.logout-btn {
-  background: #ff4b5c;
-  border: none;
-  text-align: left;
-  margin-top: auto;
-  width: 100%;
-}
-
-/* Main Content */
-.main-content {
-  margin-left: 270px;
-  padding: 40px;
-  width: 100%;
-}
-
-h2 {
-  color: #1e3a8a;
-  font-weight: 600;
-  margin-bottom: 25px;
-}
-
-/* Feedback Cards */
-.card {
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  padding: 20px;
-  background: white;
-  margin-bottom: 20px;
-  transition: 0.3s;
-}
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-}
-
-textarea {
-  width: 100%;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  padding: 10px;
-  resize: none;
-}
-
-.btn-success {
-  background: linear-gradient(135deg, #00b09b, #96c93d);
-  border: none;
-  transition: 0.3s;
-}
-.btn-success:hover {
-  background: linear-gradient(135deg, #009879, #82b92f);
-}
+body { margin: 0; display: flex; background: #f5f7fb; }
+.sidebar { width: 250px; height: 100vh; background: linear-gradient(rgba(37,117,252,0.85), rgba(106,17,203,0.85)), url('images/logo.png') center center fixed; color: white; padding: 30px 20px; position: fixed; left: 0; top: 0; display: flex; flex-direction: column; }
+.sidebar h2 { font-weight: 600; font-size: 22px; text-align: center; margin-bottom: 30px; }
+.sidebar a, .logout-btn { display: block; color: white; text-decoration: none; padding: 10px 15px; margin: 6px 0; border-radius: 8px; transition: 0.3s; }
+.sidebar a:hover, .logout-btn:hover { background: rgba(255,255,255,0.2); }
+.logout-btn { background: #ff4b5c; border: none; text-align: left; margin-top: auto; width: 100%; }
+.main-content { margin-left: 270px; padding: 40px; width: 100%; }
+h2 { color: #1e3a8a; font-weight: 600; margin-bottom: 25px; }
+.card { border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); padding: 20px; background: white; margin-bottom: 20px; transition: 0.3s; }
+.card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+textarea { width: 100%; border-radius: 8px; border: 1px solid #ccc; padding: 10px; resize: none; }
+.btn-success { background: linear-gradient(135deg, #00b09b, #96c93d); border: none; transition: 0.3s; }
+.btn-success:hover { background: linear-gradient(135deg, #009879, #82b92f); }
+.btn-danger { background: linear-gradient(135deg, #ff4b5c, #ff758c); border: none; color:white; }
+.btn-danger:hover { background: linear-gradient(135deg, #e0445a, #ff5c7a); }
 </style>
 </head>
 <body>
@@ -136,19 +63,22 @@ textarea {
 <!-- Sidebar -->
 <div class="sidebar">
   <h2>Barangay Admin</h2>
-  <a href="admin_dashboard.php">🏠 Dashboard</a>
-  <a href="manage_announcements.php">📢 Announcements</a>
-  <a href="review_requests.php">📄 Requests</a>
-  <a href="view_complaints.php">💬 Complaints</a>
-  <a href="view_feedback.php">⭐ Feedback</a>
-  <a href="manage_users.php">👥 Users</a>
-  <a href="manage_residents.php">🏘️ Residents</a>
+  <a href="admin_dashboard.php" class="active">🏠 <span>Dashboard</span></a>
+  <a href="manage_announcements.php">📢 <span>Announcements</span></a>
+  <a href="review_requests.php">📄 <span>User Requests</span></a>
+  <a href="view_transactions.php">💳 <span>Transactions</span></a>
+  <a href="manage_residents.php">👥 <span>Residents</span></a>
+  <a href="view_complaints.php">💬 <span>Complaints</span></a>
+  <a href="view_feedback.php">⭐ <span>Feedback</span></a>
+  <a href="admin_contacts.php">📞 <span>Contacts</span></a>
+  <a href="manage_users.php">🔐 <span>Users</span></a>
+  <a href="admin_manage_deliveries.php">📦 <span>Deliveries</span></a>
+  <a href="admin_manage_riders.php">🚴 <span>Manage Riders</span></a>
   <form action="logout.php" method="post">
     <button type="submit" class="logout-btn">🚪 Logout</button>
   </form>
 </div>
   
-
 <!-- Main Content -->
 <div class="main-content">
   <h2>⭐ User Feedback</h2>
@@ -171,6 +101,12 @@ textarea {
                     </form>";
           }
 
+          // Delete button
+          echo "<form method='POST' onsubmit='return confirm(\"Are you sure you want to delete this feedback?\");' class='mt-2'>
+                  <input type='hidden' name='delete_id' value='".$row['id']."'>
+                  <button type='submit' class='btn btn-danger btn-sm'>Delete Feedback</button>
+                </form>";
+
           echo "</div>";
       }
   } else {
@@ -181,3 +117,4 @@ textarea {
 
 </body>
 </html>
+  
